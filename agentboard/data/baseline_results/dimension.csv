@@ -1,7 +1,0 @@
-Dimensions,alfworld,scienceworld,babyai,jericho,pddl,webshop,webarena,tool-qa,tool-op
-Memory,1,2,1,1,2,1,3,2,3
-Planning,1,2,2,3,3,2,3,2,2
-World Modeling,3,3,2,3,1,1,3,1,1
-Self-reflection,3,2,2,1,3,2,2,1,1
-Grounding,2,3,2,1,3,3,3,3,3
-Spatial Navigation,2,2,2,2,1,1,2,1,1

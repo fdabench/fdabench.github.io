@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FDABench: A Benchmark for Data Agents on Analytical Queries over Heterogeneous Data</title>
+    <link rel="icon" href="static/img/logo.png" type="image/png">
+    <link rel="stylesheet" href="static/css/leaderboard.css">
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" href="static/css/nav.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.0.1/dist/chartjs-plugin-annotation.min.js"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NV0BT2WTBM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-NV0BT2WTBM');
+    </script>
+</head>
+
+<body>
+
+<div id="nav">
+    <div id="icon">
+        <!--        <img src="static/img/logo.png" id="nav-icon">-->
+        <!--        <a class="nav-button-main" href="index.html"-->
+        <!--           style="margin-left: 2px; font-size: 24px">Agent-Eval-->
+        <!--        </a>-->
+    </div>
+    <div>
+        <a class="nav-button" href="#home">
+            <img src="static/img/icon/home_icon.png" alt="Home">Home</a>
+        <!-- Leaderboard temporarily disabled -->
+        <!-- <a class="nav-button" href="static/leaderboard.html">
+            <img src="static/img/icon/leaderboard_icon.png" alt="Leaderboard">Leaderboard</a> -->
+    </div>
+</div>
+
+
+<!-- anchor for the home button -->
+<div id="home" style="position: absolute; top: 0;"></div>
+
+<!-- banner -->
+<div id="title">
+    <div id="title-wrapper">
+        <h1 id="title-text"><img src="static/img/logo.png" id="title-icon" alt="FDABench">FDABench: A Benchmark for Data Agents<br>
+            on Analytical Queries over Heterogeneous Data<br>
+            (2025)
+        </h1>
+    </div>
+    <!--    <h1 id="title-padding-bottom"></h1>-->
+</div>
+
+<!-- the main body of the page -->
+<div class="centered-nav">
+    <a class="nav-button" href="https://arxiv.org/abs/2509.02473">
+        <img src="static/img/icon/paper_icon.png" alt="Paper">Paper
+    </a>
+    <a class="nav-button" href="https://github.com/fdabench/FDAbench" class="ext-link" target="_blank">
+        <img src="static/img/icon/code_icon.png" alt="Code">Code
+    </a>
+    <a class="nav-button" href="https://huggingface.co/datasets/FDAbench2026/FDAbench-Full" class="ext-link" target="_blank">
+        <img src="static/img/icon/data_icon.png" alt="Data">Data
+    </a>
+</div>
+
+<div class="main-body">
+    <div class="section">
+        <h2>About FDABench</h2>
+        <p style="line-height: 150%">
+            <b>FDABench</b> is the first comprehensive benchmark designed specifically for evaluating data agents on analytical queries over heterogeneous data.
+            It addresses critical limitations in existing benchmarks by providing 2,007 diverse tasks spanning 50+ domains with integrated structured databases and unstructured documents.
+            Our benchmark supports multiple data agent workflows and enables fair evaluation of response quality, accuracy, latency, and token cost.
+            Main performance metrics of different data agent systems across various evaluation dimensions are shown below; please check our <a
+                class="ext-link" href="static/leaderboard.html">Result</a> for more details.
+        </p>
+    </div>
+</div>
+<div class="section_panel">
+    <div class="text-center btn-group">
+        <div class="btn-group btn-switch task-filter-selector task-filter-selector-index" data-toggle="buttons">
+            <button type="button" class="btn btn-container" disabled>Task Type:</button>
+            <button type="button" class="btn btn-container active" id="filter-by-report">Report</button>
+            <button type="button" class="btn btn-container" id="filter-by-single">Single-Choice</button>
+            <button type="button" class="btn btn-container" id="filter-by-multiple">Multiple-Choice</button>
+        </div>
+        <div class="btn-group btn-switch compare-filter-selector compare-filter-selector-index" data-toggle="buttons">
+            <button type="button" class="btn btn-container" disabled>Compare by:</button>
+            <button type="button" class="btn btn-container active" id="compare-by-models">Models</button>
+            <button type="button" class="btn btn-container" id="compare-by-agents">Data Agents</button>
+            <button type="button" class="btn btn-container" id="compare-by-patterns">Design Patterns</button>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: center; width: 100%;">
+        <div class="chart-container" style="width: 750px; height: 640px">
+            <canvas id="chart-success-reward-rate" width="520" height="500"></canvas>
+        </div>
+    </div>
+
+<!--        <div class="line-graph-container" style="flex: 1; min-width: 0;">-->
+<!--            <canvas id="line-graph" width="500" height="520"></canvas>-->
+<!--        </div>-->
+</div>
+<script src="static/javascript/main_results_show.js" type="module"></script>
+<div class="main-body">
+    <div class="section">
+        <h2>Illustrative Overview</h2>
+        <p style="line-height: 150%">
+            <b>FDABench</b> comprises 2,007 diverse analytical tasks across 50+ domains, covering a wide range from simple retrieval over structured databases to complex multi-step reasoning over heterogeneous data sources.
+            Our benchmark provides <b>multi-modal data integration</b> (databases, PDFs, videos, audio, web content) and <b>three distinct task categories</b> (single-choice, multiple-choice, and report generation).
+            Furthermore, it provides <b>comprehensive evaluation metrics</b> for assessing data agent performance across response quality, execution efficiency, and cost-effectiveness, as shown below.
+            For more details, please check our <a
+                class="ext-link" href="https://arxiv.org/abs/2509.02473" target="_blank">paper</a>.
+        </p>
+        <div style="display: flex; justify-content: space-between; gap: 20px; margin-top: 20px;">
+            <div class="example-box" style="flex: 1;">
+                <figure id="example-img">
+                    <img src="static/img/arch.png" alt="architecture.png" style="width: 100%; height: auto;">
+                </figure>
+            </div>
+            <div class="example-box" style="flex: 1;">
+                <figure id="example-img">
+                    <img src="static/img/generation_loop.png" alt="generation_loop.png" style="width: 100%; height: auto;">
+                </figure>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="section">
+        <div id="data" class="anchor"></div>
+        <h2>Data</h2>
+        <p>
+            Our benchmark data can be directly downloaded on <a class="ext-link"
+                                                      href="https://huggingface.co/datasets/FDAbench2026/FDAbench-Full"
+                                                      target="_blank">Hugging Face Datasets
+            </a>. For code and implementation details, please visit our <a class="ext-link" href="https://github.com/fdabench/FDAbench"
+                                                 target="_blank">GitHub
+            repository</a> for the complete FDABench implementation, including the 2,007 tasks across 50+ domains.
+        </p>
+    </div>
+    <div class="section">
+        <div id="citation" class="anchor"></div>
+        <h2>Citation</h2>
+<!--        <p>-->
+<!--            If the paper, codes, or the dataset inspires you, please cite us:-->
+<!--        </p>-->
+        <pre class="bibtax">
+@article{wang2025fdabench,
+  title={FDABench: A Benchmark for Data Agents on Analytical Queries over Heterogeneous Data},
+  author={Wang, Ziting and Zhang, Shize and Yuan, Haitao and Zhu, Jinwei and Li, Shifu and Dong, Wei and Cong, Gao},
+  journal={arXiv preprint arXiv:2509.02473},
+  year={2025}
+}
+        </pre>
+    </div>
+
+    <!-- Authors -->
+
+    <!-- Contact -->
+    <div class="section" id="contact">
+        <h2>Contact Us</h2>
+        <p>Have any questions about FDABench? Please create an issue on <a
+                    href="https://github.com/fdabench/FDAbench" class="ext-link" target="_blank">Github</a> or reach out to us through the repository.
+            For potential collaboration or questions, please visit our <a href="https://github.com/fdabench/FDAbench" class="ext-link" target="_blank">GitHub repository</a>.
+        </p>
+    </div>
+
+    <!-- Affiliation  -->
+<!--    <div class="section" style="text-align: center;">-->
+<!--        <div class="profile">-->
+<!--            <a href="https://www.sjtu.edu.cn/" target="_blank" rel="external">-->
+<!--                <img class="center-block" src="static/img/sjtu_red.png"-->
+<!--                     style="height:6em; max-width: 100%;"></a>-->
+<!--        </div>-->
+<!--        <div class="profile">-->
+<!--            <a href="https://www.tsinghua.edu.cn/" target="_blank" rel="external">-->
+<!--                <img class="center-block" src="static/img/THU_purple.png"-->
+<!--                     style="height:6em; max-width: 100%;"></a>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+</div>
+<!-- footer -->
+<div id="footer" style="font-size: 12pt; text-align: center">
+    © 2025 FDABench
+</div>
+</body>
+
+</html>
