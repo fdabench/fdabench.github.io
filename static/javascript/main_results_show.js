@@ -103,7 +103,7 @@ function getDataForCurrentFilters() {
 
     if (currentCompareMode === 'agents') {
         data = csvData.methods;
-        labels = data.map(d => d.Method);
+        labels = data.map(d => d.Method + ' (2025.11.4)');
 
         if (currentTaskType === 'single') {
             datasets = [{
@@ -148,7 +148,7 @@ function getDataForCurrentFilters() {
         }
     } else if (currentCompareMode === 'models') {
         data = csvData.models;
-        labels = data.map(d => d.model);
+        labels = data.map(d => d.model + ' (2025.11.4)');
 
         if (currentTaskType === 'single') {
             datasets = [{
@@ -193,7 +193,7 @@ function getDataForCurrentFilters() {
         }
     } else if (currentCompareMode === 'patterns') {
         data = csvData.patterns;
-        labels = data.map(d => d.design_pattern);
+        labels = data.map(d => d.design_pattern + ' (2025.11.4)');
 
         if (currentTaskType === 'single') {
             datasets = [{

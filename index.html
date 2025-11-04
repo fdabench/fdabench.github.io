@@ -148,6 +148,43 @@
             repository</a> for the complete FDABench implementation, including the 2,007 tasks across 50+ domains.
         </p>
     </div>
+
+    <div class="section">
+        <div id="acknowledgement" class="anchor"></div>
+        <h2>Acknowledgement</h2>
+        <p>
+             We thank Chuanjie Gong, Haoxuan Jia, Chuangxin Chu and Ruoxin Huang for their helpful feedback on this work. We also thank Huawei for their support in hosting the FDABench Challenge.
+        </p>
+    </div>
+
+    <div class="section">
+        <div id="submission" class="anchor"></div>
+        <h2>Submission</h2>
+        <h3>Submission Guideline</h3>
+        <p>
+            If you need to submit results, please submit them in <strong>JSONL format</strong> (JSON Lines - one JSON object per line) to
+            <a href="mailto:FDAbench2026@gmail.com">FDAbench2026@gmail.com</a>.
+        </p>
+        <p>
+            <strong>Format Requirements:</strong> Each line should contain a complete JSON object with the following key fields:
+        </p>
+        <ul>
+            <li>Basic fields: <code>task_id</code>, <code>instance_id</code>, <code>db</code>, <code>level</code>, <code>database_type</code>, <code>question_type</code></li>
+            <li>For report tasks: <code>"generated_report": "your report content"</code></li>
+            <li>For single choice: <code>"selected_answer": ["A"]</code></li>
+            <li>For multiple choice: <code>"selected_answer": ["A", "C", "F"]</code></li>
+            <li>Performance metrics: <code>latency</code>, <code>total_tokens</code>, <code>total_cost</code>, etc.</li>
+        </ul>
+        <p>
+            <strong>Example format (one JSON object per line):</strong>
+        </p>
+        <pre class="bibtax">
+{"task_id": "FDA0014", "question_type": "report", "generated_report": "## Executive Summary\n\nBased on the analysis of ...", "confidence": 0.92, "execution_time": 8.5, "total_tokens": 3200}
+{"task_id": "FDA0803", "question_type": "single_choice", "selected_answer": ["D"], "latency": "", "total_tokens": ""}
+{"task_id": "FDA1415", "question_type": "multiple_choice", "selected_answer": ["A", "B", "D", "G"], "confidence": 0.88, "execution_time": 5.7, "total_tokens": 2300}
+        </pre>
+    </div>
+
     <div class="section">
         <div id="citation" class="anchor"></div>
         <h2>Citation</h2>
