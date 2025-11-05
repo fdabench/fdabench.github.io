@@ -104,9 +104,11 @@ function getDataForCurrentFilters() {
 
     if (currentCompareMode === 'agents') {
         data = csvData.methods;
-        labels = data.map(d => d.Method);
 
+        // Filter out agents without data for the current task type
         if (currentTaskType === 'single') {
+            data = data.filter(d => d.EX_SC && d.EX_SC.trim() !== '');
+            labels = data.map(d => d.Method);
             datasets = [{
                 label: 'Execution Accuracy (Single-Choice)',
                 data: data.map(d => parseFloat(d.EX_SC) * 100),
@@ -115,6 +117,8 @@ function getDataForCurrentFilters() {
                 borderWidth: 1
             }];
         } else if (currentTaskType === 'multiple') {
+            data = data.filter(d => d.EX_MC && d.EX_MC.trim() !== '');
+            labels = data.map(d => d.Method);
             datasets = [{
                 label: 'Execution Accuracy (Multiple-Choice)',
                 data: data.map(d => parseFloat(d.EX_MC) * 100),
@@ -123,6 +127,8 @@ function getDataForCurrentFilters() {
                 borderWidth: 1
             }];
         } else if (currentTaskType === 'report') {
+            data = data.filter(d => d.R1 && d.R1.trim() !== '' && d.R2 && d.R2.trim() !== '' && d.RL && d.RL.trim() !== '');
+            labels = data.map(d => d.Method);
             datasets = [
                 {
                     label: 'ROUGE-1',
@@ -316,7 +322,8 @@ function createChart() {
                             size: 11,
                             family: "'Noto Sans', sans-serif",
                             weight: 'bold'
-                        }
+                        },
+                        align: 'center'
                     },
                     title: {
                         display: true,
@@ -331,7 +338,7 @@ function createChart() {
             },
             plugins: {
                 legend: {
-                    display: true,
+                    display: currentTaskType === 'report',  // Only show legend for report
                     labels: {
                         usePointStyle: true,
                         font: {
