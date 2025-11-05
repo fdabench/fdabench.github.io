@@ -1,7 +1,7 @@
 // Global variables
 let chartInstance = null;
-let currentTaskType = 'report'; // single, multiple, report
-let currentCompareMode = 'models'; // agents, models, patterns
+let currentTaskType = 'single'; // single, multiple, report
+let currentCompareMode = 'agents'; // agents, models, patterns
 let csvData = {
     methods: null,
     models: null,
@@ -12,7 +12,7 @@ let csvData = {
 // Color schemes for different entities
 const colorSchemes = {
     agents: [
-        '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD'
+        '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#74B9FF'
     ],
     models: [
         '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40',
@@ -32,12 +32,13 @@ const metricMappings = {
 
 // Data agent names mapping
 const agentNames = {
-    'MLE-STAR': 'MLE-STAR',
-    'Teable': 'Teable',
-    'DeepAnalyze': 'DeepAnalyze',
-    'Taiji': 'Taiji',
-    'AOP': 'AOP',
-    'AgenticData': 'AgenticData'
+    'MLE-STAR (2025.11.4)': 'MLE-STAR (2025.11.4)',
+    'Teable (2025.11.4)': 'Teable (2025.11.4)',
+    'DeepAnalyze (2025.11.4)': 'DeepAnalyze (2025.11.4)',
+    'Taiji (2025.11.4)': 'Taiji (2025.11.4)',
+    'AOP (2025.11.4)': 'AOP (2025.11.4)',
+    'AgenticData (2025.11.4)': 'AgenticData (2025.11.4)',
+    'ByteBrain-Agent (2025.11.5)': 'ByteBrain-Agent (2025.11.5)'
 };
 
 // Design pattern names
@@ -103,7 +104,7 @@ function getDataForCurrentFilters() {
 
     if (currentCompareMode === 'agents') {
         data = csvData.methods;
-        labels = data.map(d => d.Method + ' (2025.11.4)');
+        labels = data.map(d => d.Method);
 
         if (currentTaskType === 'single') {
             datasets = [{
