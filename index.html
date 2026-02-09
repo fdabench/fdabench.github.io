@@ -77,10 +77,10 @@
     <div class="section">
         <h2>About FDABench</h2>
         <p style="line-height: 150%">
-            <b>FDABench</b> is the first comprehensive benchmark designed specifically for evaluating data agents on analytical queries over heterogeneous data.
-            It addresses critical limitations in existing benchmarks by providing 2,007 diverse tasks spanning 50+ domains with integrated structured databases and unstructured documents.
-            Our benchmark supports multiple data agent workflows and enables fair evaluation of response quality, accuracy, latency, and token cost.
-            Main performance metrics of different data agent systems across various evaluation dimensions are shown below; please check our <a
+            <b>FDABench</b> is a benchmark for evaluating data agents' reasoning ability over heterogeneous data in analytical scenarios.
+            It contains 2,007 tasks across different data sources, domains, difficulty levels, and task types.
+            We provide ready-to-use data agent implementations, a DAG-based evaluation system, and <b>PUDDING</b>, an agentic dataset construction framework that combines LLM generation with iterative expert validation.
+            Main performance metrics of different data agent systems are shown below; please check our <a
                 class="ext-link" href="static/leaderboard.html">Result</a> for more details.
         </p>
     </div>
@@ -115,21 +115,21 @@
     <div class="section">
         <h2>Illustrative Overview</h2>
         <p style="line-height: 150%">
-            <b>FDABench</b> comprises 2,007 diverse analytical tasks across 50+ domains, covering a wide range from simple retrieval over structured databases to complex multi-step reasoning over heterogeneous data sources.
-            Our benchmark provides <b>multi-modal data integration</b> (databases, PDFs, videos, audio, web content) and <b>three distinct task categories</b> (single-choice, multiple-choice, and report generation).
-            Furthermore, it provides <b>comprehensive evaluation metrics</b> for assessing data agent performance across response quality, execution efficiency, and cost-effectiveness, as shown below.
+            <b>FDABench</b> comprises 2,007 analytical tasks across 50+ domains, covering structured databases, unstructured documents, web content, images, videos, and audio.
+            It supports three task types (single-choice, multiple-choice, and report generation) and four data agent workflow patterns (planning, tool-use, reflection, and multi-agent).
+            The evaluation suite includes choice correctness, rubric-based report scoring, and DAG-based reasoning trace metrics.
             For more details, please check our <a
                 class="ext-link" href="https://arxiv.org/abs/2509.02473" target="_blank">paper</a>.
         </p>
         <div style="display: flex; justify-content: space-between; gap: 20px; margin-top: 20px;">
             <div class="example-box" style="flex: 1;">
                 <figure id="example-img">
-                    <img src="static/img/arch.png" alt="architecture.png" style="width: 100%; height: auto;">
+                    <img src="static/img/generation_loop.png" alt="FDABench Overview" style="width: 100%; height: auto;">
                 </figure>
             </div>
             <div class="example-box" style="flex: 1;">
                 <figure id="example-img">
-                    <img src="static/img/generation_loop.png" alt="generation_loop.png" style="width: 100%; height: auto;">
+                    <img src="static/img/Pudding.png" alt="PUDDING Framework" style="width: 100%; height: auto;">
                 </figure>
             </div>
         </div>
