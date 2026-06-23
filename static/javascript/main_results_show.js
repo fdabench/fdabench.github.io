@@ -12,7 +12,7 @@ let csvData = {
 // Color schemes for different entities
 const colorSchemes = {
     agents: [
-        '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#74B9FF'
+        '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD', '#74B9FF', '#F39C12', '#E74C3C'
     ],
     models: [
         '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40',
@@ -27,7 +27,7 @@ const colorSchemes = {
 const metricMappings = {
     single: 'EX_SC',
     multiple: 'EX_MC',
-    report: ['R1', 'R2', 'RL'] // Multiple metrics for report
+    report: 'RS' // Rubric Score for report tasks
 };
 
 // Data agent names mapping
@@ -38,7 +38,8 @@ const agentNames = {
     'Taiji (2025.11.4)': 'Taiji (2025.11.4)',
     'AOP (2025.11.4)': 'AOP (2025.11.4)',
     'AgenticData (2025.11.4)': 'AgenticData (2025.11.4)',
-    'ByteBrain-Agent (2025.11.5)': 'ByteBrain-Agent (2025.11.5)'
+    'ByteBrain-Agent (2025.11.5)': 'ByteBrain-Agent (2025.11.5)',
+    'Data Analysis Agent (ByteDance Lark Base & Hydra & NovaBase Team)': 'Data Analysis Agent (ByteDance Lark Base & Hydra & NovaBase Team)'
 };
 
 // Design pattern names
@@ -101,6 +102,7 @@ function getDataForCurrentFilters() {
     let data = [];
     let labels = [];
     let datasets = [];
+    let links = [];
 
     if (currentCompareMode === 'agents') {
         data = csvData.methods;
@@ -127,32 +129,17 @@ function getDataForCurrentFilters() {
                 borderWidth: 1
             }];
         } else if (currentTaskType === 'report') {
-            data = data.filter(d => d.R1 && d.R1.trim() !== '' && d.R2 && d.R2.trim() !== '' && d.RL && d.RL.trim() !== '');
+            data = data.filter(d => d.RS && d.RS.trim() !== '');
             labels = data.map(d => d.Method);
-            datasets = [
-                {
-                    label: 'ROUGE-1',
-                    data: data.map(d => parseFloat(d.R1) * 100),
-                    backgroundColor: '#FF6B6B',
-                    borderColor: '#FF6B6B',
-                    borderWidth: 1
-                },
-                {
-                    label: 'ROUGE-2',
-                    data: data.map(d => parseFloat(d.R2) * 100),
-                    backgroundColor: '#4ECDC4',
-                    borderColor: '#4ECDC4',
-                    borderWidth: 1
-                },
-                {
-                    label: 'ROUGE-L',
-                    data: data.map(d => parseFloat(d.RL) * 100),
-                    backgroundColor: '#45B7D1',
-                    borderColor: '#45B7D1',
-                    borderWidth: 1
-                }
-            ];
+            datasets = [{
+                label: 'Rubric Score (RS)',
+                data: data.map(d => parseFloat(d.RS) * 100),
+                backgroundColor: colorSchemes.agents.slice(0, data.length),
+                borderColor: colorSchemes.agents.slice(0, data.length),
+                borderWidth: 1
+            }];
         }
+        links = data.map(d => (d.link && d.link.trim() !== '') ? d.link.trim() : '');
     } else if (currentCompareMode === 'models') {
         data = csvData.models;
         labels = data.map(d => d.model + ' (2025.11.4)');
@@ -174,29 +161,13 @@ function getDataForCurrentFilters() {
                 borderWidth: 1
             }];
         } else if (currentTaskType === 'report') {
-            datasets = [
-                {
-                    label: 'ROUGE-1',
-                    data: data.map(d => parseFloat(d.R1) * 100),
-                    backgroundColor: '#FF6B6B',
-                    borderColor: '#FF6B6B',
-                    borderWidth: 1
-                },
-                {
-                    label: 'ROUGE-2',
-                    data: data.map(d => parseFloat(d.R2) * 100),
-                    backgroundColor: '#4ECDC4',
-                    borderColor: '#4ECDC4',
-                    borderWidth: 1
-                },
-                {
-                    label: 'ROUGE-L',
-                    data: data.map(d => parseFloat(d.RL) * 100),
-                    backgroundColor: '#45B7D1',
-                    borderColor: '#45B7D1',
-                    borderWidth: 1
-                }
-            ];
+            datasets = [{
+                label: 'Rubric Score (RS)',
+                data: data.map(d => parseFloat(d.RS) * 100),
+                backgroundColor: colorSchemes.models.slice(0, data.length),
+                borderColor: colorSchemes.models.slice(0, data.length),
+                borderWidth: 1
+            }];
         }
     } else if (currentCompareMode === 'patterns') {
         data = csvData.patterns;
@@ -219,29 +190,13 @@ function getDataForCurrentFilters() {
                 borderWidth: 1
             }];
         } else if (currentTaskType === 'report') {
-            datasets = [
-                {
-                    label: 'ROUGE-1',
-                    data: data.map(d => parseFloat(d.R1) * 100),
-                    backgroundColor: '#66C2A5',
-                    borderColor: '#66C2A5',
-                    borderWidth: 1
-                },
-                {
-                    label: 'ROUGE-2',
-                    data: data.map(d => parseFloat(d.R2) * 100),
-                    backgroundColor: '#FC8D62',
-                    borderColor: '#FC8D62',
-                    borderWidth: 1
-                },
-                {
-                    label: 'ROUGE-L',
-                    data: data.map(d => parseFloat(d.RL) * 100),
-                    backgroundColor: '#8DA0CB',
-                    borderColor: '#8DA0CB',
-                    borderWidth: 1
-                }
-            ];
+            datasets = [{
+                label: 'Rubric Score (RS)',
+                data: data.map(d => parseFloat(d.RS) * 100),
+                backgroundColor: colorSchemes.patterns,
+                borderColor: colorSchemes.patterns,
+                borderWidth: 1
+            }];
         }
     }
 
@@ -253,6 +208,9 @@ function getDataForCurrentFilters() {
             .map(item => item.index);
 
         labels = sortedIndices.map(i => labels[i]);
+        if (links.length > 0) {
+            links = sortedIndices.map(i => links[i]);
+        }
         datasets.forEach(dataset => {
             dataset.data = sortedIndices.map(i => dataset.data[i]);
             if (Array.isArray(dataset.backgroundColor)) {
@@ -262,11 +220,50 @@ function getDataForCurrentFilters() {
         });
     }
 
-    return {labels, datasets};
+    return {labels, datasets, links};
+}
+
+// Wrap a long category label onto a few short lines so it does not widen the
+// y-axis gutter and push the bars to the right. Short labels are left as-is.
+function wrapLabel(label) {
+    if (typeof label !== 'string' || label.length <= 34) {
+        return label;
+    }
+    const maxLen = 24;
+    const words = label.split(' ');
+    const lines = [];
+    let current = '';
+    words.forEach(word => {
+        if (current && (current + ' ' + word).length > maxLen) {
+            lines.push(current);
+            current = word;
+        } else {
+            current = current ? current + ' ' + word : word;
+        }
+    });
+    if (current) {
+        lines.push(current);
+    }
+    return lines;
+}
+
+// Resolve the category index under a pointer event. Bars report it directly;
+// clicks in the left label gutter are mapped through the category (y) scale.
+function indexFromEvent(event, elements, chart, count) {
+    if (elements.length > 0) {
+        return elements[0].index;
+    }
+    if (chart && chart.chartArea && event.x != null && event.x < chart.chartArea.left) {
+        const v = chart.scales.y.getValueForPixel(event.y);
+        if (v != null && isFinite(v)) {
+            return Math.max(0, Math.min(count - 1, Math.round(v)));
+        }
+    }
+    return -1;
 }
 
 function createChart() {
-    const {labels, datasets} = getDataForCurrentFilters();
+    const {labels, datasets, links} = getDataForCurrentFilters();
 
     if (!labels || labels.length === 0) {
         console.error('No data available for chart');
@@ -285,13 +282,26 @@ function createChart() {
     chartInstance = new Chart(ctx, {
         type: chartType,
         data: {
-            labels: labels,
+            labels: labels.map(wrapLabel),
             datasets: datasets
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             indexAxis: 'y',
+            onClick: function(event, elements, chart) {
+                const idx = indexFromEvent(event, elements, chart, labels.length);
+                const url = idx >= 0 && links && links[idx];
+                if (url) {
+                    window.open(url, '_blank', 'noopener');
+                }
+            },
+            onHover: function(event, elements, chart) {
+                const target = event.native && event.native.target;
+                if (!target) return;
+                const idx = indexFromEvent(event, elements, chart, labels.length);
+                target.style.cursor = (idx >= 0 && links && links[idx]) ? 'pointer' : 'default';
+            },
             scales: {
                 x: {
                     beginAtZero: true,
@@ -338,7 +348,7 @@ function createChart() {
             },
             plugins: {
                 legend: {
-                    display: currentTaskType === 'report',  // Only show legend for report
+                    display: false,  // single metric per task type; axis title states the metric
                     labels: {
                         usePointStyle: true,
                         font: {
@@ -358,6 +368,12 @@ function createChart() {
                             }
                             label += context.formattedValue + '%';
                             return label;
+                        },
+                        afterLabel: function(context) {
+                            if (links && links[context.dataIndex]) {
+                                return 'Click to open product page';
+                            }
+                            return '';
                         }
                     }
                 }
@@ -368,7 +384,7 @@ function createChart() {
 
 function getXAxisTitle() {
     if (currentTaskType === 'report') {
-        return 'ROUGE Score (%)';
+        return 'Rubric Score (RS, %)';
     } else if (currentTaskType === 'single') {
         return 'Single-Choice Accuracy (%)';
     } else if (currentTaskType === 'multiple') {
